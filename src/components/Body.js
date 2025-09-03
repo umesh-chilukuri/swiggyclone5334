@@ -36,80 +36,66 @@ if(resList.length==0){
 
     return(
         <div className="body">
-            <div className="filter flex">
-                <div className="search  m-4 p-4 flex items-center">
-                    <input type="text"  className=" border-solid border-black" 
-                     value={searchtext} onChange={(e)=>{
-                        setsearchtext(e.target.value);
-                    }}></input>
-                    <button className="m-4 bg-green-400 px-4 rounded-lg"
-                    onClick={()=>{
-                        //filter the ui
-                        console.log(searchtext)
+            <div className="container-app">
+                <div className="flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center gap-2 w-full max-w-xl">
+                        <input type="text"  className="input" 
+                         placeholder="Search restaurants..."
+                         value={searchtext} onChange={(e)=>{
+                            setsearchtext(e.target.value);
+                        }}></input>
+                        <button className="btn-primary"
+                        onClick={()=>{
+                            //filter the ui
+                            console.log(searchtext)
 
 
 
-                      const filterrest=  resList.filter( (res)=>
-                        {
-                            return res.info.name.toLowerCase().includes(searchtext.toLowerCase())
-                            
-                            
-                            });
-                      setfilterrest(filterrest);
-                      console.log(filterrest);
+                          const filterrest=  resList.filter( (res)=>
+                            {
+                                return res.info.name.toLowerCase().includes(searchtext.toLowerCase())
+                                
+                                
+                                });
+                          setfilterrest(filterrest);
+                          console.log(filterrest);
 
 
 
-                    }}>search</button>
-                </div>
+                        }}>Search</button>
+                    </div>
 
-                <div  className="m-4 p-4 flex" >
-
-                
-                <button className="bg-green-50 px-4 py-2 rounded-lg" 
-                                onClick={()=>{
-                               const r=resList.filter(
-                                    (res)=>res.info.avgRating>4
-                                );
-                                console.log(r);
-                                setresList(r) ;  
-                                }}>
-                                          top rated restaurants</button>
-
-                                          </div>  
-
-
-
-
-
-
-                 <div className="m-4 p-4 flex items-center">
-                    <label>username</label>
-                    <input className="border border-black p-2"
-                    value={loggedinuser}
-                    onChange={(e)=> setUsername(e.target.value)}></input>
-                    
+                    <div  className="flex items-center gap-2" >
+                        <button className="btn-secondary" 
+                                        onClick={()=>{
+                                       const r=resList.filter(
+                                            (res)=>res.info.avgRating>4
+                                        );
+                                        console.log(r);
+                                        setresList(r) ;  
+                                        }}>
+                                                  Top rated</button>
                     </div>  
 
-
-
-
-
-
-
-             </div>
-            <div className="res-container break-words flex flex-wrap ">
-               {
-                filterrest.map((u)=>(
-                   <Link to={"/restaurents/"+u.info.id}>
-                   {u.info.isOpen ? <ReataurantcardPromoted   resData={u}/> :<Reataurantcard  resData={u}/>}
-                     </Link>
-                  )
-                )
-               }
-                
-                
-
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                        <label className="text-sm font-medium text-gray-700">Username</label>
+                        <input className="input"
+                        value={loggedinuser}
+                        onChange={(e)=> setUsername(e.target.value)}></input>
+                    </div>  
+                </div>
+            </div>
+            <div className="container-app">
+                <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                   {
+                    filterrest.map((u)=>(
+                       <Link to={"/restaurents/"+u.info.id}>
+                       {u.info.isOpen ? <ReataurantcardPromoted   resData={u}/> :<Reataurantcard  resData={u}/>}
+                         </Link>
+                      )
+                    )
+                   }
+                </div>
             </div>
         </div>
     )
